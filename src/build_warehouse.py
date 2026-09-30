@@ -4,7 +4,7 @@ import duckdb
 
 DB_PATH = Path("data/warehouse.duckdb")
 RAW = Path("data/raw")
-SQL_DIRS = ["sql/staging"]
+SQL_DIRS = ["sql/staging", "sql/marts"]
 
 
 def path_sql(name):
@@ -13,6 +13,7 @@ def path_sql(name):
 
 def load_raw(con):
     con.execute("CREATE SCHEMA IF NOT EXISTS raw")
+    con.execute("CREATE SCHEMA IF NOT EXISTS marts")
 
     # Só as colunas necessárias. O campo "user" (pessoas) fica de fora de propósito.
     con.execute(f"""
